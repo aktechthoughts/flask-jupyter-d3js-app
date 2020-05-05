@@ -1,0 +1,24 @@
+FROM ubuntu:18.04
+
+
+RUN apt-get update \
+ && apt-get install -y ansible \
+ && apt-get install -y awscli \
+ && apt-get install -y python3-pip  
+
+RUN mkdir -p /root/.aws
+RUN mkdir -p /app/notebooks/projects
+WORKDIR /app
+
+RUN pip3 install --upgrade pip
+RUN pip3 install virtualenv
+
+RUN virtualenv notebooks/projects
+RUN . notebooks/projects/bin/activate
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+RUN rm requirements.txt
+
+ENV PATH=/home/ubuntu/.virtualenvs/bin:$PATH
+
+CMD ["jupyter","notebook","--port=8888","--no-browser","--ip=0.0.0.0","--allow-root","--NotebookApp.password=''","--NotebookApp.token=''"]

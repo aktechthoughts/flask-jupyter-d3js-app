@@ -1,0 +1,29 @@
+version: '3'
+services:
+ jupyter:
+  image: aktechthoughts/jupyter
+  build:
+   context: .  
+   dockerfile: Dockerfile.jupyter
+  ports: 
+   - "8888:8888"  
+  volumes:
+   - /home/ubuntu/.aws:/root/.aws
+   - /home/abhishek/projects/python/notebooks/projects:/app/notebooks/projects
+   - /home/abhishek/projects/python/notebooks/data:/app/notebooks/data   
+
+ webapp:
+  depends_on: [jupyter]
+  image: aktechthoughts/webapp
+  build:
+    context: .  
+    dockerfile: Dockerfile.app
+  command: 
+    flask run  
+  ports: 
+   - "5000:5000"   
+  volumes:
+   - /home/abhishek/projects/python/notebooks/data:/app/models
+
+#  redis:
+#   image: "redis:alpine"

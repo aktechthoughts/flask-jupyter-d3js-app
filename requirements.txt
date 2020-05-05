@@ -1,0 +1,6 @@
+mysql-connector
+sqlalchemy
+pymysql
+pandas
+redis
+jupyter
