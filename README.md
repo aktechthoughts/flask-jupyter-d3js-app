@@ -1,14 +1,9 @@
-## A docker image to pull json data from s3.
-## Load json data into mysql table.
-## execute sql/*.sql on the mysql
+### This example creates docker applications for - jupyter notebook and a Flask based d3js application.
 
-### Steps to Execute
+### The notebook mysqlalchemy can generate bar.json
 
-```
-docker-compose up --build
-./docker_run.sh
+### The appliation http://localhost:5000/bar will generate bar chart based on the data in bar.json
 
-```
  
 ## Acknowledgments
 
